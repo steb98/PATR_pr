@@ -50,7 +50,7 @@
     http://www.OpenRTOS.com - Commercial support, development, porting,
     licensing and training services.
 */
-
+#include "FreeRTOS.h"
 #ifndef PARTEST_H
 #define PARTEST_H
 

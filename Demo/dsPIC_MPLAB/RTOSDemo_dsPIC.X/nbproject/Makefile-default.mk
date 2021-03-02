@@ -57,17 +57,17 @@ OBJECTDIR=build/${CND_CONF}/${IMAGE_TYPE}
 DISTDIR=dist/${CND_CONF}/${IMAGE_TYPE}
 
 # Source Files Quoted if spaced
-SOURCEFILES_QUOTED_IF_SPACED=../main.c ../../../Source/list.c ../../../Source/queue.c ../../../Source/tasks.c ../../../Source/portable/MPLAB/PIC24_dsPIC/port.c ../../../Source/portable/MemMang/heap_1.c ../ParTest/ParTest.c ../../../Source/portable/MPLAB/PIC24_dsPIC/portasm_dsPIC.S ../../../Source/croutine.c
+SOURCEFILES_QUOTED_IF_SPACED=../main.c ../../../Source/list.c ../../../Source/queue.c ../../../Source/tasks.c ../../../Source/portable/MPLAB/PIC24_dsPIC/port.c ../../../Source/portable/MemMang/heap_1.c ../ParTest/ParTest.c ../../../Source/portable/MPLAB/PIC24_dsPIC/portasm_dsPIC.S ../../../Source/croutine.c ../interrupts.c ../initialization.c
 
 # Object Files Quoted if spaced
-OBJECTFILES_QUOTED_IF_SPACED=${OBJECTDIR}/_ext/1472/main.o ${OBJECTDIR}/_ext/449926602/list.o ${OBJECTDIR}/_ext/449926602/queue.o ${OBJECTDIR}/_ext/449926602/tasks.o ${OBJECTDIR}/_ext/1343266892/port.o ${OBJECTDIR}/_ext/1884096877/heap_1.o ${OBJECTDIR}/_ext/809743516/ParTest.o ${OBJECTDIR}/_ext/1343266892/portasm_dsPIC.o ${OBJECTDIR}/_ext/449926602/croutine.o
-POSSIBLE_DEPFILES=${OBJECTDIR}/_ext/1472/main.o.d ${OBJECTDIR}/_ext/449926602/list.o.d ${OBJECTDIR}/_ext/449926602/queue.o.d ${OBJECTDIR}/_ext/449926602/tasks.o.d ${OBJECTDIR}/_ext/1343266892/port.o.d ${OBJECTDIR}/_ext/1884096877/heap_1.o.d ${OBJECTDIR}/_ext/809743516/ParTest.o.d ${OBJECTDIR}/_ext/1343266892/portasm_dsPIC.o.d ${OBJECTDIR}/_ext/449926602/croutine.o.d
+OBJECTFILES_QUOTED_IF_SPACED=${OBJECTDIR}/_ext/1472/main.o ${OBJECTDIR}/_ext/449926602/list.o ${OBJECTDIR}/_ext/449926602/queue.o ${OBJECTDIR}/_ext/449926602/tasks.o ${OBJECTDIR}/_ext/1343266892/port.o ${OBJECTDIR}/_ext/1884096877/heap_1.o ${OBJECTDIR}/_ext/809743516/ParTest.o ${OBJECTDIR}/_ext/1343266892/portasm_dsPIC.o ${OBJECTDIR}/_ext/449926602/croutine.o ${OBJECTDIR}/_ext/1472/interrupts.o ${OBJECTDIR}/_ext/1472/initialization.o
+POSSIBLE_DEPFILES=${OBJECTDIR}/_ext/1472/main.o.d ${OBJECTDIR}/_ext/449926602/list.o.d ${OBJECTDIR}/_ext/449926602/queue.o.d ${OBJECTDIR}/_ext/449926602/tasks.o.d ${OBJECTDIR}/_ext/1343266892/port.o.d ${OBJECTDIR}/_ext/1884096877/heap_1.o.d ${OBJECTDIR}/_ext/809743516/ParTest.o.d ${OBJECTDIR}/_ext/1343266892/portasm_dsPIC.o.d ${OBJECTDIR}/_ext/449926602/croutine.o.d ${OBJECTDIR}/_ext/1472/interrupts.o.d ${OBJECTDIR}/_ext/1472/initialization.o.d
 
 # Object Files
-OBJECTFILES=${OBJECTDIR}/_ext/1472/main.o ${OBJECTDIR}/_ext/449926602/list.o ${OBJECTDIR}/_ext/449926602/queue.o ${OBJECTDIR}/_ext/449926602/tasks.o ${OBJECTDIR}/_ext/1343266892/port.o ${OBJECTDIR}/_ext/1884096877/heap_1.o ${OBJECTDIR}/_ext/809743516/ParTest.o ${OBJECTDIR}/_ext/1343266892/portasm_dsPIC.o ${OBJECTDIR}/_ext/449926602/croutine.o
+OBJECTFILES=${OBJECTDIR}/_ext/1472/main.o ${OBJECTDIR}/_ext/449926602/list.o ${OBJECTDIR}/_ext/449926602/queue.o ${OBJECTDIR}/_ext/449926602/tasks.o ${OBJECTDIR}/_ext/1343266892/port.o ${OBJECTDIR}/_ext/1884096877/heap_1.o ${OBJECTDIR}/_ext/809743516/ParTest.o ${OBJECTDIR}/_ext/1343266892/portasm_dsPIC.o ${OBJECTDIR}/_ext/449926602/croutine.o ${OBJECTDIR}/_ext/1472/interrupts.o ${OBJECTDIR}/_ext/1472/initialization.o
 
 # Source Files
-SOURCEFILES=../main.c ../../../Source/list.c ../../../Source/queue.c ../../../Source/tasks.c ../../../Source/portable/MPLAB/PIC24_dsPIC/port.c ../../../Source/portable/MemMang/heap_1.c ../ParTest/ParTest.c ../../../Source/portable/MPLAB/PIC24_dsPIC/portasm_dsPIC.S ../../../Source/croutine.c
+SOURCEFILES=../main.c ../../../Source/list.c ../../../Source/queue.c ../../../Source/tasks.c ../../../Source/portable/MPLAB/PIC24_dsPIC/port.c ../../../Source/portable/MemMang/heap_1.c ../ParTest/ParTest.c ../../../Source/portable/MPLAB/PIC24_dsPIC/portasm_dsPIC.S ../../../Source/croutine.c ../interrupts.c ../initialization.c
 
 
 
@@ -167,6 +167,18 @@ ${OBJECTDIR}/_ext/449926602/croutine.o: ../../../Source/croutine.c  nbproject/Ma
 	@${RM} ${OBJECTDIR}/_ext/449926602/croutine.o.ok ${OBJECTDIR}/_ext/449926602/croutine.o.err 
 	@${FIXDEPS} "${OBJECTDIR}/_ext/449926602/croutine.o.d" $(SILENT) -rsi ${MP_CC_DIR}../ -c ${MP_CC} $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_SIMULATOR=1 -omf=elf -x c -c -mcpu=$(MP_PROCESSOR_OPTION) -Wall -DMPLAB_DSPIC_PORT -I".." -I"../../../../../Demo/dsPIC_MPLAB" -I"../../../../Demo/dsPIC_MPLAB" -I"../../../../Source/include" -I"../../../../include" -I"../../../Common/include" -I"../../../Source/include" -I"../../../include" -I"../../Common/include" -I"../../Demo/dsPIC_MPLAB" -I"../../include" -I"../FileSystem" -I"../include" -I"." -O2 -MMD -MF "${OBJECTDIR}/_ext/449926602/croutine.o.d" -o ${OBJECTDIR}/_ext/449926602/croutine.o ../../../Source/croutine.c   -fno-schedule-insns -fno-schedule-insns2
 	
+${OBJECTDIR}/_ext/1472/interrupts.o: ../interrupts.c  nbproject/Makefile-${CND_CONF}.mk 
+	@${MKDIR} "${OBJECTDIR}/_ext/1472" 
+	@${RM} ${OBJECTDIR}/_ext/1472/interrupts.o.d 
+	@${RM} ${OBJECTDIR}/_ext/1472/interrupts.o.ok ${OBJECTDIR}/_ext/1472/interrupts.o.err 
+	@${FIXDEPS} "${OBJECTDIR}/_ext/1472/interrupts.o.d" $(SILENT) -rsi ${MP_CC_DIR}../ -c ${MP_CC} $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_SIMULATOR=1 -omf=elf -x c -c -mcpu=$(MP_PROCESSOR_OPTION) -Wall -DMPLAB_DSPIC_PORT -I".." -I"../../../../../Demo/dsPIC_MPLAB" -I"../../../../Demo/dsPIC_MPLAB" -I"../../../../Source/include" -I"../../../../include" -I"../../../Common/include" -I"../../../Source/include" -I"../../../include" -I"../../Common/include" -I"../../Demo/dsPIC_MPLAB" -I"../../include" -I"../FileSystem" -I"../include" -I"." -O2 -MMD -MF "${OBJECTDIR}/_ext/1472/interrupts.o.d" -o ${OBJECTDIR}/_ext/1472/interrupts.o ../interrupts.c   -fno-schedule-insns -fno-schedule-insns2
+	
+${OBJECTDIR}/_ext/1472/initialization.o: ../initialization.c  nbproject/Makefile-${CND_CONF}.mk 
+	@${MKDIR} "${OBJECTDIR}/_ext/1472" 
+	@${RM} ${OBJECTDIR}/_ext/1472/initialization.o.d 
+	@${RM} ${OBJECTDIR}/_ext/1472/initialization.o.ok ${OBJECTDIR}/_ext/1472/initialization.o.err 
+	@${FIXDEPS} "${OBJECTDIR}/_ext/1472/initialization.o.d" $(SILENT) -rsi ${MP_CC_DIR}../ -c ${MP_CC} $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_SIMULATOR=1 -omf=elf -x c -c -mcpu=$(MP_PROCESSOR_OPTION) -Wall -DMPLAB_DSPIC_PORT -I".." -I"../../../../../Demo/dsPIC_MPLAB" -I"../../../../Demo/dsPIC_MPLAB" -I"../../../../Source/include" -I"../../../../include" -I"../../../Common/include" -I"../../../Source/include" -I"../../../include" -I"../../Common/include" -I"../../Demo/dsPIC_MPLAB" -I"../../include" -I"../FileSystem" -I"../include" -I"." -O2 -MMD -MF "${OBJECTDIR}/_ext/1472/initialization.o.d" -o ${OBJECTDIR}/_ext/1472/initialization.o ../initialization.c   -fno-schedule-insns -fno-schedule-insns2
+	
 else
 ${OBJECTDIR}/_ext/1472/main.o: ../main.c  nbproject/Makefile-${CND_CONF}.mk 
 	@${MKDIR} "${OBJECTDIR}/_ext/1472" 
@@ -215,6 +227,18 @@ ${OBJECTDIR}/_ext/449926602/croutine.o: ../../../Source/croutine.c  nbproject/Ma
 	@${RM} ${OBJECTDIR}/_ext/449926602/croutine.o.d 
 	@${RM} ${OBJECTDIR}/_ext/449926602/croutine.o.ok ${OBJECTDIR}/_ext/449926602/croutine.o.err 
 	@${FIXDEPS} "${OBJECTDIR}/_ext/449926602/croutine.o.d" $(SILENT) -rsi ${MP_CC_DIR}../ -c ${MP_CC} $(MP_EXTRA_CC_PRE)  -g -omf=elf -x c -c -mcpu=$(MP_PROCESSOR_OPTION) -Wall -DMPLAB_DSPIC_PORT -I".." -I"../../../../../Demo/dsPIC_MPLAB" -I"../../../../Demo/dsPIC_MPLAB" -I"../../../../Source/include" -I"../../../../include" -I"../../../Common/include" -I"../../../Source/include" -I"../../../include" -I"../../Common/include" -I"../../Demo/dsPIC_MPLAB" -I"../../include" -I"../FileSystem" -I"../include" -I"." -O2 -MMD -MF "${OBJECTDIR}/_ext/449926602/croutine.o.d" -o ${OBJECTDIR}/_ext/449926602/croutine.o ../../../Source/croutine.c   -fno-schedule-insns -fno-schedule-insns2
+	
+${OBJECTDIR}/_ext/1472/interrupts.o: ../interrupts.c  nbproject/Makefile-${CND_CONF}.mk 
+	@${MKDIR} "${OBJECTDIR}/_ext/1472" 
+	@${RM} ${OBJECTDIR}/_ext/1472/interrupts.o.d 
+	@${RM} ${OBJECTDIR}/_ext/1472/interrupts.o.ok ${OBJECTDIR}/_ext/1472/interrupts.o.err 
+	@${FIXDEPS} "${OBJECTDIR}/_ext/1472/interrupts.o.d" $(SILENT) -rsi ${MP_CC_DIR}../ -c ${MP_CC} $(MP_EXTRA_CC_PRE)  -g -omf=elf -x c -c -mcpu=$(MP_PROCESSOR_OPTION) -Wall -DMPLAB_DSPIC_PORT -I".." -I"../../../../../Demo/dsPIC_MPLAB" -I"../../../../Demo/dsPIC_MPLAB" -I"../../../../Source/include" -I"../../../../include" -I"../../../Common/include" -I"../../../Source/include" -I"../../../include" -I"../../Common/include" -I"../../Demo/dsPIC_MPLAB" -I"../../include" -I"../FileSystem" -I"../include" -I"." -O2 -MMD -MF "${OBJECTDIR}/_ext/1472/interrupts.o.d" -o ${OBJECTDIR}/_ext/1472/interrupts.o ../interrupts.c   -fno-schedule-insns -fno-schedule-insns2
+	
+${OBJECTDIR}/_ext/1472/initialization.o: ../initialization.c  nbproject/Makefile-${CND_CONF}.mk 
+	@${MKDIR} "${OBJECTDIR}/_ext/1472" 
+	@${RM} ${OBJECTDIR}/_ext/1472/initialization.o.d 
+	@${RM} ${OBJECTDIR}/_ext/1472/initialization.o.ok ${OBJECTDIR}/_ext/1472/initialization.o.err 
+	@${FIXDEPS} "${OBJECTDIR}/_ext/1472/initialization.o.d" $(SILENT) -rsi ${MP_CC_DIR}../ -c ${MP_CC} $(MP_EXTRA_CC_PRE)  -g -omf=elf -x c -c -mcpu=$(MP_PROCESSOR_OPTION) -Wall -DMPLAB_DSPIC_PORT -I".." -I"../../../../../Demo/dsPIC_MPLAB" -I"../../../../Demo/dsPIC_MPLAB" -I"../../../../Source/include" -I"../../../../include" -I"../../../Common/include" -I"../../../Source/include" -I"../../../include" -I"../../Common/include" -I"../../Demo/dsPIC_MPLAB" -I"../../include" -I"../FileSystem" -I"../include" -I"." -O2 -MMD -MF "${OBJECTDIR}/_ext/1472/initialization.o.d" -o ${OBJECTDIR}/_ext/1472/initialization.o ../initialization.c   -fno-schedule-insns -fno-schedule-insns2
 	
 endif
 

@@ -9,6 +9,8 @@
       <itemPath>../../../Source/include/croutine.h</itemPath>
       <itemPath>../../../Source/include/queue.h</itemPath>
       <itemPath>../FreeRTOSConfig.h</itemPath>
+      <itemPath>../interrupts.h</itemPath>
+      <itemPath>../initialization.h</itemPath>
     </logicalFolder>
     <logicalFolder name="LinkerScript"
                    displayName="Linker Files"
@@ -27,6 +29,8 @@
       <itemPath>../ParTest/ParTest.c</itemPath>
       <itemPath>../../../Source/portable/MPLAB/PIC24_dsPIC/portasm_dsPIC.S</itemPath>
       <itemPath>../../../Source/croutine.c</itemPath>
+      <itemPath>../interrupts.c</itemPath>
+      <itemPath>../initialization.c</itemPath>
     </logicalFolder>
     <logicalFolder name="ExternalFiles"
                    displayName="Important Files"
@@ -109,9 +113,6 @@
         <property key="scalar-model" value="default"/>
         <appendMe value="-fno-schedule-insns -fno-schedule-insns2"/>
       </C30>
-      <C30-AR>
-        <property key="additional-options-chop-files" value="false"/>
-      </C30-AR>
       <C30-AS>
         <property key="assembler-symbols" value=""/>
         <property key="expand-macros" value="false"/>
@@ -132,9 +133,6 @@
         <property key="warning-level" value="emit-warnings"/>
         <appendMe value="-g"/>
       </C30-AS>
-      <C30-CO>
-        <property key="coverage-enable" value=""/>
-      </C30-CO>
       <C30-LD>
         <property key="boot-eeprom" value="no_eeprom"/>
         <property key="boot-flash" value="no_flash"/>
