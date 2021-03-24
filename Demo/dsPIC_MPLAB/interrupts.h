@@ -13,7 +13,8 @@
 extern "C" {
 #endif
 
-    void init_INT0();
+extern unsigned char ucApplicationRunning;
+void init_INT0();
 
 
 
