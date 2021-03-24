@@ -1,0 +1,40 @@
+{
+    "configurations": [
+        {
+            "name": "Win32",
+            "includePath": [
+                "${workspaceFolder}/**"
+            ],
+            "defines": [
+                "_DEBUG",
+                "UNICODE",
+                "_UNICODE"
+            ],
+            "cStandard": "c17",
+            "cppStandard": "c++17",
+            "intelliSenseMode": "windows-msvc-x64"
+        },
+        {
+            "name": "dsPIC",
+            "includePath": [
+                "${workspaceFolder}/**",
+                "C:/Program Files (x86)/Microchip/MPLAB C30/**",
+                "C:/Program Files (x86)/Microchip/MPLAB C30/include/",
+                "C:\\\\Program Files (x86)\\\\Microchip\\\\MPLAB C30\\\\support\\\\dsPIC33F\\\\**",
+                "${workspaceFolder}/Source/include/**",
+                "${workspaceFolder}/Source/portable/MPLAB/PIC24_dsPIC"
+            ],
+            "defines": [
+                "_DEBUG",
+                "UNICODE",
+                "_UNICODE"
+            ],
+            "cStandard": "c17",
+            "cppStandard": "c++17",
+            "intelliSenseMode": "linux-gcc-arm",
+            "compilerArgs": [],
+            "compilerPath": "C:\\\\Program Files (x86)\\\\Microchip\\\\MPLAB C30\\\\bin\\\\pic30-gcc.exe"
+        }
+    ],
+    "version": 4
+}

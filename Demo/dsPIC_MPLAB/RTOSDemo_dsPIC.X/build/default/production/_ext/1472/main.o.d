@@ -10,6 +10,7 @@ build/default/production/_ext/1472/main.o:  \
 ../../../Source/include/list.h  \
 ../../../Source/include/queue.h  \
 ../../../Source/include/croutine.h  \
+../new_lcd.h  \
 ../interrupts.h  \
 ../initialization.h  \
 ../../Common/include/partest.h  \
