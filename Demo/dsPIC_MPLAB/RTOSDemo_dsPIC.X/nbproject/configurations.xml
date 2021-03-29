@@ -11,6 +11,7 @@
       <itemPath>../FreeRTOSConfig.h</itemPath>
       <itemPath>../interrupts.h</itemPath>
       <itemPath>../initialization.h</itemPath>
+      <itemPath>../new_lcd.h</itemPath>
     </logicalFolder>
     <logicalFolder name="LinkerScript"
                    displayName="Linker Files"
@@ -31,6 +32,7 @@
       <itemPath>../../../Source/croutine.c</itemPath>
       <itemPath>../interrupts.c</itemPath>
       <itemPath>../initialization.c</itemPath>
+      <itemPath>../new_lcd.c</itemPath>
     </logicalFolder>
     <logicalFolder name="ExternalFiles"
                    displayName="Important Files"

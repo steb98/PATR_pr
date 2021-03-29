@@ -8,10 +8,10 @@ void init_INT0(){
     _INT0IE = 1; // Se permite lucrul cu întreruperea INT0
     _INT0EP = 1; // Se stabile?te pe ce front se genereaz? INT0
 }
-
+unsigned char ucApplicationRunning=1;
 void __attribute__ ((interrupt, no_auto_psv)) _INT0Interrupt(void)
 {
-_RB15 = ~_RB15;
-_INT0IF = 0;// Resetam flagul corespunzator intreruperii
-// INT0 pentru a nu se reapela rutina de intrerupere
+    ucApplicationRunning = !ucApplicationRunning;
+    _RB15 = ~_RB15;
+    _INT0IF = 0;// Resetam flagul corespunzator intreruperii
 }

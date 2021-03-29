@@ -2,9 +2,13 @@
 
 void prvSetupHardware( void )
 {
-	//ADPCFG = 0xFFFF;				//make ADC pins all digital - adaugat
+	ADPCFG = 0xFFFF;				//make ADC pins all digital - adaugat - pt lcd
+    
 	vParTestInitialise();
 	initPLL();
+   
+    init_INT0();
+	LCD_init();
 }
 
 void initPLL(void)
