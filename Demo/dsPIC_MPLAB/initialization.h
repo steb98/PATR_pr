@@ -18,6 +18,8 @@ extern "C" {
 void initPLL(void);
 void init_ds18s20();
 void prvSetupHardware( void );
+void initAdc1(void);
+void initTmr3();
 
 
 
