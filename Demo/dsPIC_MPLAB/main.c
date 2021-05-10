@@ -99,9 +99,9 @@ void DisplayInfo(void *params) {
 	char cTemp[5] = {' ',' ',' ',' ',' '};
 	for (;;)
 		{
-			LCD_line(0);
+			LCD_line(1);
 			LCD_printf("Mod : ");
-			if(opMode == AUTOMAT)
+			f(opMode == AUTOMAT)
 			{
 				LCD_printf("AUTOMAT");
 			}else{
@@ -110,7 +110,7 @@ void DisplayInfo(void *params) {
 
 			_itoaQ15(temp,cTemp);
 
-			LCD_line(1);
+			LCD_line(2);
 			LCD_printf("Temp: ");
 			LCD_printf(cTemp);
 			
@@ -138,10 +138,10 @@ int main( void )
 	prvSetupHardware();
     
     
-	xTaskCreate(StartStop, (signed portCHAR *) "StartStop", configMINIMAL_STACK_SIZE, NULL, PRIO_StartStop, &hTStartStop);
+	xTaskCreate(StartStop, (signed portCHAR *) "StartStop", configMINIMAL_STACK_SIZE, NULL, PRIO_StartStop, &hTStartStop); //to do INT0 interrrupt
 	xTaskCreate(TempRead, (signed portCHAR *) "TempRead", configMINIMAL_STACK_SIZE, NULL, PRIO_TempRead, &hTTempRead);
 	xTaskCreate(DisplayInfo, (signed portCHAR *) "DisplayInfo", configMINIMAL_STACK_SIZE, NULL, PRIO_DisplayInfo, &hTDisplayInfo);
-	xTaskCreate(Mode, (signed portCHAR *) "Mode", configMINIMAL_STACK_SIZE, NULL, PRIO_Mode, &hTMode);
+	//xTaskCreate(Mode, (signed portCHAR *) "Mode", configMINIMAL_STACK_SIZE, NULL, PRIO_Mode, &hTMode);
 
 	vTaskStartScheduler();
 

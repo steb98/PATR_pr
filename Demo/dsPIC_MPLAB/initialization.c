@@ -110,11 +110,11 @@ void prvSetupHardware( void )
 
     init_INT0();
 
-	initPWM3();
+	//initPWM3();
 
-	initAdc1();
+	//initAdc1();
 
-	initTmr3();
+	//initTmr3();
     
 	PORTB = 0;
 	
