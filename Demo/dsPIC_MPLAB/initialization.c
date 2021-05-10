@@ -60,6 +60,24 @@ void initTmr3(){
 	T3CONbits.TON = 1; // Start Timer 3
 }
 
+void initPWM3()	{           //Initializare PWM3
+ P1TCONbits.PTOPS = 0; 		// Timer base output scale
+ P1TCONbits.PTMOD = 0; 		// Free running
+ P1TMRbits.PTDIR = 0; 		
+ P1TMRbits.PTMR = 0; 		// Baza de timp
+
+ P1TPER = 0x249F;
+ P1DC3 = 0x754;
+
+ PWM1CON1bits.PMOD3 = 1; 		// Canalele PWM3H si PWM3L nu dipind una de celalta
+ PWM1CON1bits.PEN3H = 1; 		// Pinul PWM1H setat pe iesire PWM
+ PWM1CON1bits.PEN3L = 0; 		// Pinul PWM1L setat pe iesire PWM
+
+ PWM1CON2bits.UDIS = 1; 		// Disable Updates from duty cycle and period buffers
+ P1TCONbits.PTCKPS = 3;			// prescaler 1:64
+ P1TCONbits.PTEN = 1; 			// Enable the PWM Module  
+} 
+
 /* Rutina de tratare a intreruperii convertorului AD */
 void __attribute__((interrupt, no_auto_psv)) _ADC1Interrupt(void){
 	int value;
@@ -81,6 +99,8 @@ void prvSetupHardware( void )
 	init_ds18s20();
 
     init_INT0();
+
+	initPWM3();
 
 	initAdc1();
 
