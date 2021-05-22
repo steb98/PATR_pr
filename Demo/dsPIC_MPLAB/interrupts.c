@@ -17,7 +17,7 @@ enum operationMode{MANUAL,AUTOMAT};
 void __attribute__ ((interrupt, no_auto_psv)) _INT0Interrupt(void)
 {
     ucApplicationRunning = !ucApplicationRunning;
-    _RB11 = ~_RB11;
+    //_RB11 = ~_RB11;
     _INT0IF = 0;// Resetam flagul corespunzator intreruperii
 }
 #endif

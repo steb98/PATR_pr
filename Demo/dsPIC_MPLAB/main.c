@@ -35,10 +35,7 @@ void Mode(void *params);
 #define PRIO_DisplayInfo 1
 #define PRIO_Mode 4
 
-#if DEBUG_MODE==1
-	#define _RB0 _RB11
-	#define _RB1 _RB11
-#endif
+
 
 enum operationMode{MANUAL,AUTOMAT};
 
@@ -56,7 +53,7 @@ void StartStop(void *params) {
 	for (;;)
 		{		
         if(ucApplicationRunning){
-            _RB0=0; //led aprins
+            _RB11=0; //led aprins
 
             portENTER_CRITICAL();
 
@@ -79,7 +76,7 @@ void StartStop(void *params) {
 				hTMode = NULL;
                 ucTaskDeleted = 1;
             }
-            _RB0 = ~ _RB0;
+            _RB11 = ~ _RB11;
             portEXIT_CRITICAL();
         }
 		
@@ -120,7 +117,7 @@ void DisplayInfo(void *params) {
 void Mode(void *params) {
 	for (;;)
 		{
-
+			_TRISB11 = 0;
 			if(ucApplicationRunning){
 				_RB1 = 0; // bec aprins
 				opMode = AUTOMAT;

@@ -60,13 +60,14 @@ void initAdc1(void){
 	IPC3bits.AD1IP = 6;     // Seteaza prioritatea intreruperii convertorului AD
 	IEC0bits.AD1IE = 1;     // Permite intreruperea convertorului AD
 
-	AD1CON1bits.ADON = 1;
+	AD1CON1bits.ADON = 1;	//activare adc
+
 }
 
 void initTmr3(){
 	TMR3 = 0; //Resetam timer 3
-	T3CONbits.TCKPS = 2; //PRESCALER
-	PR3 = 4999; // T = PR3/(FCY/PRESCALER); T = 0.1 s, FCY = 40 MHz; PRESCALER=256 => PR3=15625 
+	T3CONbits.TCKPS = 2; //PRESCALER 64
+	PR3 = 4999; // T = PR3/(FCY/PRESCALER); T =8 ms, FCY = 40 MHz; PRESCALER=64 => PR3=4999
 	T3CONbits.TON = 1; // Start Timer 3
 }
 
@@ -117,6 +118,7 @@ void initPWM3()	{           //Initializare PWM3
 void __attribute__((interrupt, no_auto_psv)) _ADC1Interrupt(void){
 	int value;
 	value = ADC1BUF0;
+	//valoareTensiune = (ADC1BUF0*3)/4096;
     IFS0bits.AD1IF = 0; // Achita intreruperea convertorului AD
 }
 
@@ -124,11 +126,13 @@ void prvSetupHardware( void )
 {
 	/* Lucrul cu pini */
 	ADPCFG = 0xFFFF;	//make ADC pins all digital - adaugat - pt lcd si senzor_temp
-	TRISB=0x0000;  //setam toti pinii ca iesire 
-	_TRISB1 = 1;   //Pinul RB1 este setat ca intrare 
+	TRISB=0x0000;  //setam toti pinii ca iesire
+	_TRISB0 = 0;
+	_TRISB1 = 0;   //Pinul RB1 este setat ca intrare 
 	_TRISB2 = 1;  //Pinul RB2 este setat ca intrare(comunicarea cu senzorul de temperatura) 
 	_TRISB3 = 1;  //Pinul RB3 este setat ca intrare (pentru conversia AD)
 	_TRISB7 = 1;  //Pinul RB7 este setat ca intrare (intreruperea INT0)
+	_TRISB11 = 0;  //Pinul RB11 este setat ca iesire (debuging LED)
 	_RB10 = 0;    //Pinul RB10  SETAT CA IESIRE --> PWM-RB10
 	PORTB=0x0000;  //seteaza valoare pentru pinii setati ca iesire
 
