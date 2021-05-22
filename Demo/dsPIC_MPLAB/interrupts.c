@@ -6,15 +6,18 @@ void init_INT0(){
     _TRISB7 = 1; // RB7 este setat ca intrare
     _RB7 = 1;
     _INT0IF = 0; // Resetem flagul coresp. intreruperii INT0
-    _INT0IE = 1; // Se permite lucrul cu întreruperea INT0
+    _INT0IE = 1; // Se permite lucrul cu ï¿½ntreruperea INT0
     _INT0EP = 1; // Se stabile?te pe ce front se genereaz? INT0
 }
 unsigned char ucApplicationRunning=1;
 
+enum operationMode{MANUAL,AUTOMAT};
+//extern enum operationMode opMode;
+
 void __attribute__ ((interrupt, no_auto_psv)) _INT0Interrupt(void)
 {
     ucApplicationRunning = !ucApplicationRunning;
-    _RB15 = ~_RB15;
+    _RB11 = ~_RB11;
     _INT0IF = 0;// Resetam flagul corespunzator intreruperii
 }
 #endif

@@ -101,7 +101,7 @@ void DisplayInfo(void *params) {
 		{
 			LCD_line(1);
 			LCD_printf("Mod : ");
-			f(opMode == AUTOMAT)
+			if(opMode == AUTOMAT)
 			{
 				LCD_printf("AUTOMAT");
 			}else{
@@ -121,10 +121,12 @@ void Mode(void *params) {
 	for (;;)
 		{
 
-			if(opMode == AUTOMAT){
+			if(ucApplicationRunning){
 				_RB1 = 0; // bec aprins
+				opMode = AUTOMAT;
 			}else{
 				_RB1 = 1; //bec stins
+				opMode = MANUAL;
 			}
 
 			vTaskDelay(400);
@@ -138,10 +140,10 @@ int main( void )
 	prvSetupHardware();
     
     
-	xTaskCreate(StartStop, (signed portCHAR *) "StartStop", configMINIMAL_STACK_SIZE, NULL, PRIO_StartStop, &hTStartStop); //to do INT0 interrrupt
+	//xTaskCreate(StartStop, (signed portCHAR *) "StartStop", configMINIMAL_STACK_SIZE, NULL, PRIO_StartStop, &hTStartStop); //to do INT0 interrrupt
 	xTaskCreate(TempRead, (signed portCHAR *) "TempRead", configMINIMAL_STACK_SIZE, NULL, PRIO_TempRead, &hTTempRead);
 	xTaskCreate(DisplayInfo, (signed portCHAR *) "DisplayInfo", configMINIMAL_STACK_SIZE, NULL, PRIO_DisplayInfo, &hTDisplayInfo);
-	//xTaskCreate(Mode, (signed portCHAR *) "Mode", configMINIMAL_STACK_SIZE, NULL, PRIO_Mode, &hTMode);
+	xTaskCreate(Mode, (signed portCHAR *) "Mode", configMINIMAL_STACK_SIZE, NULL, PRIO_Mode, &hTMode);
 
 	vTaskStartScheduler();
 

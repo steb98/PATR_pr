@@ -66,26 +66,51 @@ void initAdc1(void){
 void initTmr3(){
 	TMR3 = 0; //Resetam timer 3
 	T3CONbits.TCKPS = 2; //PRESCALER
-	PR3 = 15625; // T = PR3/(FCY/PRESCALER); T = 0.1 s, FCY = 40 MHz; PRESCALER=256 => PR3=15625 
+	PR3 = 4999; // T = PR3/(FCY/PRESCALER); T = 0.1 s, FCY = 40 MHz; PRESCALER=256 => PR3=15625 
 	T3CONbits.TON = 1; // Start Timer 3
 }
 
 void initPWM3()	{           //Initializare PWM3
- P1TCONbits.PTOPS = 0; 		// Timer base output scale
- P1TCONbits.PTMOD = 0; 		// Free running
- P1TMRbits.PTDIR = 0; 		
- P1TMRbits.PTMR = 0; 		// Baza de timp
+  P1TCONbits.PTOPS = 0; // Timer base output scale
+ P1TCONbits.PTMOD = 0; // Free running
+ P1TCONbits.PTCKPS = 0b11; // 11 PWM time base input clock period is 64 TCY (1:64 prescale)
+ P1TMRbits.PTDIR = 0; // Numara in sus pana cand timerul = perioada
+ P1TMRbits.PTMR = 0; // Baza de timp
+					
+					 
+ P1DC3 = 1850;          //corespunzatoare 1.5 ms 
+		//1250;//1 ms 2500;	//2 ms//temperaturii de 25*C ii va
+					    // corespunde pozitia centrala 
+				  
+ P1TPER = 12500;        //20 ms 
+						//PWM Time Base Period Register
 
- P1TPER = 0x249F;
- P1DC3 = 0x754;
+ PWM1CON1bits.PMOD3 = 1; // Canalele PWM3H si PWM3L sunt independente
 
- PWM1CON1bits.PMOD3 = 1; 		// Canalele PWM3H si PWM3L nu dipind una de celalta
- PWM1CON1bits.PEN3H = 1; 		// Pinul PWM1H setat pe iesire PWM
- PWM1CON1bits.PEN3L = 0; 		// Pinul PWM1L setat pe iesire PWM
+ PWM1CON1bits.PEN3H = 0; // Pinul PWM3H setat pe I/O general purpose
+ PWM1CON1bits.PEN3L = 1; // Pinul PWM3L setat pe iesire PWM          ----> RB10
 
- PWM1CON2bits.UDIS = 1; 		// Disable Updates from duty cycle and period buffers
- P1TCONbits.PTCKPS = 3;			// prescaler 1:64
- P1TCONbits.PTEN = 1; 			// Enable the PWM Module  
+ PWM1CON2bits.UDIS = 1; // Disable Updates from duty cycle and period buffers
+ /* Clock period for Dead Time Unit A is TcY */
+ P1DTCON1bits.DTAPS = 0b00;
+ /* Clock period for Dead Time Unit B is TcY */
+ P1DTCON1bits.DTBPS = 0b00;
+
+ /* Dead time value for Dead Time Unit A */
+ P1DTCON1bits.DTA = 10;
+ /* Dead time value for Dead Time Unit B */
+ P1DTCON1bits.DTB = 20;
+ /* Dead Time Unit selection for PWM signals */
+ /* Dead Time Unit A selected for PWM active transitions */ 
+ P1DTCON2bits.DTS3A = 0;
+ //P1DTCON2bits.DTS2A = 0;
+ //P1DTCON2bits.DTS1A = 0;
+
+ /* Dead Time Unit B selected for PWM inactive transitions */
+ P1DTCON2bits.DTS3I = 1;
+ //P1DTCON2bits.DTS2I = 1;
+ //P1DTCON2bits.DTS1I = 1;
+ P1TCONbits.PTEN = 1; /* Enable the PWM Module */ 
 } 
 
 /* Rutina de tratare a intreruperii convertorului AD */
@@ -97,11 +122,19 @@ void __attribute__((interrupt, no_auto_psv)) _ADC1Interrupt(void){
 
 void prvSetupHardware( void )
 {
+	/* Lucrul cu pini */
 	ADPCFG = 0xFFFF;	//make ADC pins all digital - adaugat - pt lcd si senzor_temp
+	TRISB=0x0000;  //setam toti pinii ca iesire 
+	_TRISB1 = 1;   //Pinul RB1 este setat ca intrare 
+	_TRISB2 = 1;  //Pinul RB2 este setat ca intrare(comunicarea cu senzorul de temperatura) 
+	_TRISB3 = 1;  //Pinul RB3 este setat ca intrare (pentru conversia AD)
+	_TRISB7 = 1;  //Pinul RB7 este setat ca intrare (intreruperea INT0)
+	_RB10 = 0;    //Pinul RB10  SETAT CA IESIRE --> PWM-RB10
+	PORTB=0x0000;  //seteaza valoare pentru pinii setati ca iesire
+
 	CNPU2bits.CN22PUE = 0;
 	CNPU2bits.CN23PUE = 0;
-    TRISB = 0 ;	// toate iesiri
-	PORTB = 0 ;
+
 	initPLL();
 
 	LCD_init();
@@ -110,13 +143,12 @@ void prvSetupHardware( void )
 
     init_INT0();
 
-	//initPWM3();
+	initPWM3();
 
-	//initAdc1();
+	initAdc1();
 
-	//initTmr3();
+	initTmr3();
     
-	PORTB = 0;
 	
 }
 
