@@ -53,14 +53,14 @@ void StartStop(void *params) {
 	for (;;)
 		{		
         if(ucApplicationRunning){
-            _RB11=0; //led aprins
+            //_RB0=0; //led aprins
 
             portENTER_CRITICAL();
-
+			vTaskSuspend(&hTTempRead);
+			vTaskSuspend(&hTDisplayInfo);
+			vTaskSuspend(&hTMode);
             if(ucTaskDeleted){
-                xTaskCreate(TempRead, (signed portCHAR *) "TempRead", configMINIMAL_STACK_SIZE, NULL, PRIO_TempRead, &hTTempRead);
-				xTaskCreate(DisplayInfo, (signed portCHAR *) "DisplayInfo", configMINIMAL_STACK_SIZE, NULL, PRIO_DisplayInfo, &hTDisplayInfo);
-                xTaskCreate(Mode, (signed portCHAR *) "Mode", configMINIMAL_STACK_SIZE, NULL, PRIO_Mode, &hTMode);
+                
 				ucTaskDeleted = 0;
             }
             portEXIT_CRITICAL();
@@ -68,15 +68,13 @@ void StartStop(void *params) {
         }else{
             portENTER_CRITICAL();
             if(!ucTaskDeleted){
-                vTaskDelete(hTTempRead);
-				vTaskDelete(hTDisplayInfo);
-				vTaskDelete(hTMode);
-                hTTempRead = NULL;
-				hTDisplayInfo = NULL;
-				hTMode = NULL;
+                vTaskResume(&hTMode);
+                vTaskResume(&hTDisplayInfo);
+                vTaskResume(&hTMode);
+
                 ucTaskDeleted = 1;
             }
-            _RB11 = ~ _RB11;
+            //_RB0 = ~ _RB0;
             portEXIT_CRITICAL();
         }
 		
@@ -115,15 +113,28 @@ void DisplayInfo(void *params) {
 		}
 }
 void Mode(void *params) {
+	unsigned int width = 0; //PWM width
 	for (;;)
 		{
-			_TRISB11 = 0;
 			if(ucApplicationRunning){
+				T3CONbits.TON = 0; // oprire conversie AD
 				_RB1 = 0; // bec aprins
 				opMode = AUTOMAT;
+				width =(((((temp*1000)-20000)/100))*10)+1350;  // valoarea factorului de umplere
+				P1DC3 = width; // Actualizare registru duty-cycle PWM
+
 			}else{
+				T3CONbits.TON = 1; //startare conversie AD
 				_RB1 = 1; //bec stins
 				opMode = MANUAL;
+				if(uiTensValue<=1){
+					width = 1250;
+				}else{
+					width= ((((uiTensValue*1000)-1000)/20)*10)+1350;
+				}
+				P1DC3 = width; // Actualizare registru duty-cycle PWM
+
+				
 			}
 
 			vTaskDelay(400);

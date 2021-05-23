@@ -14,6 +14,7 @@ extern "C" {
 #endif
 
 extern unsigned char ucApplicationRunning;
+extern unsigned int uiTensValue;
 void init_INT0();
 
 
