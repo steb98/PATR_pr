@@ -8,6 +8,7 @@
 #include "croutine.h"
 
 
+
 /* Demo application includes. */
 
 /*Application includes*/
@@ -45,7 +46,7 @@ xTaskHandle hTDisplayInfo;
 xTaskHandle hTMode;
 
 int temp = 1.0;
-enum operationMode opMode = AUTOMAT;
+
 unsigned char ucTaskDeleted = 0;
 //unsigned char ucApplicationRunning = 1;
 
@@ -54,12 +55,12 @@ void StartStop(void *params) {
 		{		
         if(ucApplicationRunning){
             //_RB0=0; //led aprins
-
-            portENTER_CRITICAL();
-			vTaskSuspend(&hTTempRead);
-			vTaskSuspend(&hTDisplayInfo);
-			vTaskSuspend(&hTMode);
-            if(ucTaskDeleted){
+			if(ucTaskDeleted){
+            	portENTER_CRITICAL();
+				vTaskResume(hTTempRead);
+				vTaskResume(hTDisplayInfo);
+				vTaskResume(hTMode);
+            
                 
 				ucTaskDeleted = 0;
             }
@@ -68,9 +69,9 @@ void StartStop(void *params) {
         }else{
             portENTER_CRITICAL();
             if(!ucTaskDeleted){
-                vTaskResume(&hTMode);
-                vTaskResume(&hTDisplayInfo);
-                vTaskResume(&hTMode);
+                vTaskSuspend(hTTempRead);
+                vTaskSuspend(hTDisplayInfo);
+                vTaskSuspend(hTMode);
 
                 ucTaskDeleted = 1;
             }
@@ -116,21 +117,22 @@ void Mode(void *params) {
 	unsigned int width = 0; //PWM width
 	for (;;)
 		{
-			if(ucApplicationRunning){
+			if(opMode){
 				T3CONbits.TON = 0; // oprire conversie AD
 				_RB1 = 0; // bec aprins
 				opMode = AUTOMAT;
 				width =(((((temp*1000)-20000)/100))*10)+1350;  // valoarea factorului de umplere
 				P1DC3 = width; // Actualizare registru duty-cycle PWM
+				
 
 			}else{
 				T3CONbits.TON = 1; //startare conversie AD
 				_RB1 = 1; //bec stins
 				opMode = MANUAL;
-				if(uiTensValue<=1){
+				if(tensValue<=1){
 					width = 1250;
 				}else{
-					width= ((((uiTensValue*1000)-1000)/20)*10)+1350;
+					width= ((((tensValue*1000)-1000)/20)*10)+1350;
 				}
 				P1DC3 = width; // Actualizare registru duty-cycle PWM
 
@@ -148,7 +150,7 @@ int main( void )
 	prvSetupHardware();
     
     
-	//xTaskCreate(StartStop, (signed portCHAR *) "StartStop", configMINIMAL_STACK_SIZE, NULL, PRIO_StartStop, &hTStartStop); //to do INT0 interrrupt
+	xTaskCreate(StartStop, (signed portCHAR *) "StartStop", configMINIMAL_STACK_SIZE, NULL, PRIO_StartStop, &hTStartStop); //to do INT0 interrrupt
 	xTaskCreate(TempRead, (signed portCHAR *) "TempRead", configMINIMAL_STACK_SIZE, NULL, PRIO_TempRead, &hTTempRead);
 	xTaskCreate(DisplayInfo, (signed portCHAR *) "DisplayInfo", configMINIMAL_STACK_SIZE, NULL, PRIO_DisplayInfo, &hTDisplayInfo);
 	xTaskCreate(Mode, (signed portCHAR *) "Mode", configMINIMAL_STACK_SIZE, NULL, PRIO_Mode, &hTMode);

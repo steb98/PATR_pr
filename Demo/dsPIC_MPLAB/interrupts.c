@@ -12,20 +12,21 @@ void init_INT0(){
 unsigned char ucApplicationRunning=1;
 
 enum operationMode{MANUAL,AUTOMAT};
-//extern enum operationMode opMode;
+enum operationMode opMode = AUTOMAT;
 
 void __attribute__ ((interrupt, no_auto_psv)) _INT0Interrupt(void)
 {
     ucApplicationRunning = !ucApplicationRunning;
-    //_RB11 = ~_RB11;
+    //opMode = !opMode;
     _INT0IF = 0;// Resetam flagul corespunzator intreruperii
 }
 
-unsigned int     uiTensValue = 0;
+unsigned int uiTensValue = 0;
+float tensValue = 0;
 /* Rutina de tratare a intreruperii convertorului AD */
 void __attribute__((interrupt, no_auto_psv)) _ADC1Interrupt(void){
 	uiTensValue = ADC1BUF0;
-	uiTensValue = (ADC1BUF0*3.3)/4096;
+	tensValue = (float)((float)ADC1BUF0*3.3)/(float)4096;
     IFS0bits.AD1IF = 0; // Achita intreruperea convertorului AD
 }
 #endif

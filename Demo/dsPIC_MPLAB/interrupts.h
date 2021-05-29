@@ -13,8 +13,12 @@
 extern "C" {
 #endif
 
+void init_INT0();
+
 extern unsigned char ucApplicationRunning;
-extern unsigned int uiTensValue;
+extern unsigned int uiADCValue;
+extern float tensValue;
+extern enum operationMode opMode;
 void init_INT0();
 
 
