@@ -88,10 +88,10 @@ void initPWM3()	{           			//Initializare PWM3
 
 	PWM1CON1bits.PMOD3 = 1; 			// Canalele PWM3H si PWM3L sunt independente
 
-	PWM1CON1bits.PEN3H = 0; 			// Pinul PWM3H setat pe I/O general purpose
-	PWM1CON1bits.PEN3L = 1; 			// Pinul PWM3L setat pe iesire PWM  ----> RB10
+	PWM1CON1bits.PEN3H = 1; 			// Pinul PWM3H setat pe I/O general purpose
+	PWM1CON1bits.PEN3L = 0; 			// Pinul PWM3L setat pe iesire PWM  ----> RB10
 
-	PWM1CON2bits.UDIS = 1; 				// Disable Updates from duty cycle and period buffers
+	PWM1CON2bits.UDIS = 0; 				// Disable Updates from duty cycle and period buffers
 	/* Clock period for Dead Time Unit A is TcY */
 	P1DTCON1bits.DTAPS = 0;
 	/* Clock period for Dead Time Unit B is TcY */
